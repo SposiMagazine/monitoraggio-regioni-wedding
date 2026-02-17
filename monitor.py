@@ -64,7 +64,23 @@ sheet = client.open_by_key("1MQ0mn4dTvAR4Ba72N_f0OTIlEFpyX6GxZGo9e2oaRI6c18cpW18
                         "score": score,
                         "data": datetime.today().strftime("%Y-%m-%d")
                     })
-
+    # Scrive risultati nello Sheet
+    for r in results:
+        sheet.append_row([
+            r["regione"],
+            r["ente"],
+            "Bando/Avviso",    # Tipo Documento
+            r["titolo"],
+            r["url"],
+            r["data"],         # Data Pubblicazione
+            "",                # Scadenza
+            "",                # Budget stimato
+            "",                # Compatibilità
+            r["score"],        # Score calcolato
+            "",                # Azione consigliata
+            "",                # Email generata
+            "Nuovo"            # Stato
+        ])
         return results
 
     except Exception as e:
