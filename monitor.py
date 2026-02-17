@@ -2,7 +2,31 @@ import requests
 from bs4 import BeautifulSoup
 from datetime import datetime
 
-def check_site(url, regione, ente):
+import os
+import json
+import gspread
+from oauth2client.service_account import ServiceAccountCredentials
+
+# Recupera il secret da GitHub Actions
+credentials_json = os.getenv("GOOGLE_CREDENTIALS")
+
+# Converte stringa JSON in oggetto Python
+creds_dict = json.loads(credentials_json)
+
+# Imposta accesso Google Sheet
+scope = [
+    "https://spreadsheets.google.com/feeds",
+    "https://www.googleapis.com/auth/spreadsheets",
+    "https://www.googleapis.com/auth/drive.file",
+    "https://www.googleapis.com/auth/drive"
+]
+
+creds = ServiceAccountCredentials.from_json_keyfile_dict(creds_dict, scope)
+client = gspread.authorize(creds)
+
+# Apri il foglio tramite ID
+sheet = client.open_by_key("1MQ0mn4dTvAR4Ba72N_f0OTIlEFpyX6GxZGo9e2oaRI6c18cpW18wWyDv").sheet1
+ check_site(url, regione, ente):
     try:
         response = requests.get(url)
         soup = BeautifulSoup(response.text, "html.parser")
