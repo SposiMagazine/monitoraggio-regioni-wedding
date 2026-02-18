@@ -1,19 +1,16 @@
 import requests
 from bs4 import BeautifulSoup
 from datetime import datetime
-
 import os
 import json
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 
-# Recupera il secret da GitHub Actions
-credentials_json = os.getenv("GOOGLE_CREDENTIALS")
+# ====== GOOGLE SHEET CONNECTION ======
 
-# Converte stringa JSON in oggetto Python
+credentials_json = os.getenv("GOOGLE_CREDENTIALS")
 creds_dict = json.loads(credentials_json)
 
-# Imposta accesso Google Sheet
 scope = [
     "https://spreadsheets.google.com/feeds",
     "https://www.googleapis.com/auth/spreadsheets",
@@ -24,15 +21,18 @@ scope = [
 creds = ServiceAccountCredentials.from_json_keyfile_dict(creds_dict, scope)
 client = gspread.authorize(creds)
 
-# Apri il foglio tramite ID
+# 👉 METTI QUI IL TUO ID REALE
 sheet = client.open_by_key("1MQ0mn4dTvAR4Ba72N_f0OTIlEFpyX6GxZGo9e2oaRI6c18cpW18wWyDv").sheet1
- check_site(url, regione, ente):
+
+
+# ====== SCRAPING FUNCTION ======
+
+def check_site(url, regione, ente):
     try:
         response = requests.get(url)
         soup = BeautifulSoup(response.text, "html.parser")
 
-        titles = soup.find_all("a")[:10]  # prende i primi 10 link
-
+        titles = soup.find_all("a")[:10]
         results = []
 
         for link in titles:
@@ -56,31 +56,34 @@ sheet = client.open_by_key("1MQ0mn4dTvAR4Ba72N_f0OTIlEFpyX6GxZGo9e2oaRI6c18cpW18
                         score += 2
 
                 if score > 0:
-                    results.append({
+                    result = {
                         "regione": regione,
                         "ente": ente,
                         "titolo": text,
                         "url": href,
                         "score": score,
                         "data": datetime.today().strftime("%Y-%m-%d")
-                    })
-    # Scrive risultati nello Sheet
-    for r in results:
-        sheet.append_row([
-            r["regione"],
-            r["ente"],
-            "Bando/Avviso",    # Tipo Documento
-            r["titolo"],
-            r["url"],
-            r["data"],         # Data Pubblicazione
-            "",                # Scadenza
-            "",                # Budget stimato
-            "",                # Compatibilità
-            r["score"],        # Score calcolato
-            "",                # Azione consigliata
-            "",                # Email generata
-            "Nuovo"            # Stato
-        ])
+                    }
+
+                    results.append(result)
+
+                    # Scrive subito nello Sheet
+                    sheet.append_row([
+                        regione,
+                        ente,
+                        "Bando/Avviso",
+                        text,
+                        href,
+                        result["data"],
+                        "",
+                        "",
+                        "",
+                        score,
+                        "",
+                        "",
+                        "Nuovo"
+                    ])
+
         return results
 
     except Exception as e:
@@ -88,51 +91,49 @@ sheet = client.open_by_key("1MQ0mn4dTvAR4Ba72N_f0OTIlEFpyX6GxZGo9e2oaRI6c18cpW18
         return []
 
 
-if __name__ == "__main__":
-    sites = [
-    {
-        "regione": "Toscana",
-        "ente": "Toscana Promozione Turistica",
-        "url": "https://www.toscanapromozione.it/"
-    },
-    {
-        "regione": "Puglia",
-        "ente": "Pugliapromozione",
-        "url": "https://www.agenziapugliapromozione.it/"
-    },
-    {
-        "regione": "Piemonte",
-        "ente": "Visit Piemonte",
-        "url": "https://www.visitpiemonte.it/"
-    },
-    {
-        "regione": "Friuli Venezia Giulia",
-        "ente": "PromoTurismoFVG",
-        "url": "https://www.turismofvg.it/"
-    },
-    {
-        "regione": "Sicilia",
-        "ente": "Assessorato Turismo Sicilia",
-        "url": "https://www.siciliatourism.com/"
-    },
-    {
-        "regione": "Marche",
-        "ente": "Regione Marche Turismo",
-        "url": "https://www.turismo.marche.it/"
-    },
-    {
-        "regione": "Calabria",
-        "ente": "Turismo Calabria",
-        "url": "https://www.calabriaturismo.it/"
-    }
-]
+# ====== MAIN ======
 
-    all_results = []
+if __name__ == "__main__":
+
+    sites = [
+        {
+            "regione": "Toscana",
+            "ente": "Toscana Promozione Turistica",
+            "url": "https://www.toscanapromozione.it/"
+        },
+        {
+            "regione": "Puglia",
+            "ente": "Pugliapromozione",
+            "url": "https://www.agenziapugliapromozione.it/"
+        },
+        {
+            "regione": "Piemonte",
+            "ente": "Visit Piemonte",
+            "url": "https://www.visitpiemonte.it/"
+        },
+        {
+            "regione": "Friuli Venezia Giulia",
+            "ente": "PromoTurismoFVG",
+            "url": "https://www.turismofvg.it/"
+        },
+        {
+            "regione": "Sicilia",
+            "ente": "Assessorato Turismo Sicilia",
+            "url": "https://www.siciliatourism.com/"
+        },
+        {
+            "regione": "Marche",
+            "ente": "Regione Marche Turismo",
+            "url": "https://www.turismo.marche.it/"
+        },
+        {
+            "regione": "Calabria",
+            "ente": "Turismo Calabria",
+            "url": "https://www.calabriaturismo.it/"
+        }
+    ]
 
     for site in sites:
-        results = check_site(site["url"], site["regione"], site["ente"])
-        all_results.extend(results)
+        check_site(site["url"], site["regione"], site["ente"])
 
-    print("Risultati trovati:")
-    for r in all_results:
-        print(r)
+    print("Monitoraggio completato.")
