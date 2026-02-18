@@ -22,7 +22,7 @@ creds = ServiceAccountCredentials.from_json_keyfile_dict(creds_dict, scope)
 client = gspread.authorize(creds)
 
 # 👉 METTI QUI IL TUO ID REALE
-sheet = client.open_by_key("1MQ0mn4dTvAR4Ba72N_f0OTIlEFpyX6GxZGo9e2oaRI6c18cpW18wWyDv").sheet1
+sheet = client.open_by_key("1yzlJ--HTsqvdUdiaASZbQMoC2jaE0tvZ-g2vvwVE4GY").sheet1
 
 
 # ====== SCRAPING FUNCTION ======
