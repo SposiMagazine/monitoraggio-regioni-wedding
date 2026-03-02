@@ -57,21 +57,48 @@ def check_site(url, regione, ente):
 
             if text and href and not href.startswith("javascript") and not href.startswith("#"):
                 score = 0
-                keywords = [
-                    "promozione",
-                    "marketing",
-                    "turismo",
-                    "wedding",
-                    "eventi",
-                    "comunicazione",
-                    "campagna",
-                ]
+                text_lower = text.lower()
 
-                for word in keywords:
-                    if word.lower() in text.lower():
-                        score += 2
+score = 0
 
-                if score > 0 and href not in existing_urls:
+# ===== KEYWORD POSITIVE PESATE =====
+positive_keywords = {
+    "bando": 5,
+    "gara": 5,
+    "affidamento": 5,
+    "manifestazione di interesse": 4,
+    "promozione territoriale": 4,
+    "marketing territoriale": 4,
+    "destination": 5,
+    "wedding": 6,
+    "incoming": 4,
+    "turismo internazionale": 4,
+    "brand territoriale": 4,
+    "campagna": 3,
+    "eventi": 3
+}
+
+for keyword, weight in positive_keywords.items():
+    if keyword in text_lower:
+        score += weight
+
+
+# ===== KEYWORD NEGATIVE (BLOCCO) =====
+negative_keywords = [
+    "microimprese",
+    "pmi",
+    "fondo perduto",
+    "sostegno alle imprese",
+    "voucher imprese",
+    "contributo alle imprese"
+]
+
+for bad_word in negative_keywords:
+    if bad_word in text_lower:
+        score = 0
+        break
+
+                if score >= 5 and href not in existing_urls:
                     result = {
                         "regione": regione,
                         "ente": ente,
