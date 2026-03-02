@@ -23,8 +23,18 @@ client = gspread.authorize(creds)
 
 # 👉 METTI QUI IL TUO ID REALE
 sheet = client.open_by_key("1yzlJ--HTsqvdUdiaASZbQMoC2jaE0tvZ-g2vvwVE4GY").sheet1
+# ====== CARICA URL GIÀ PRESENTI ======
 
+existing_urls = set()
 
+try:
+    records = sheet.get_all_records()
+    for row in records:
+        if "URL" in row and row["URL"]:
+            existing_urls.add(row["URL"])
+except Exception as e:
+    print("Errore lettura sheet:", e)
+    
 # ====== SCRAPING FUNCTION ======
 
 def check_site(url, regione, ente):
@@ -55,7 +65,7 @@ def check_site(url, regione, ente):
                     if word.lower() in text.lower():
                         score += 2
 
-                if score > 0:
+                if score > 0 and href not in existing_urls:
                     result = {
                         "regione": regione,
                         "ente": ente,
@@ -84,6 +94,7 @@ def check_site(url, regione, ente):
                         "Nuovo"
                     ])
 
+        existing_urls.add(href)
         return results
 
     except Exception as e:
