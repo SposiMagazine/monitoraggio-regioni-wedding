@@ -43,7 +43,7 @@ except Exception as e:
     
 # ====== SCRAPING FUNCTION ======
 
-def check_site(url, regione, ente):
+def check_site(url, regione, ente, priority_weight):
     try:
         response = requests.get(url)
         soup = BeautifulSoup(response.text, "html.parser")
@@ -80,6 +80,7 @@ def check_site(url, regione, ente):
             for keyword, weight in positive_keywords.items():
                 if keyword in text_lower:
                     score += weight
+                    score = int(score * priority_weight)
 
             # ===== KEYWORD NEGATIVE =====
             negative_keywords = [
@@ -139,10 +140,21 @@ def check_site(url, regione, ente):
 if __name__ == "__main__":
 
     for site in sites:
-        check_site(
-            site["url"],
-            site["regione"],
-            site["ente"]
-        )
+
+    priority_weight = 1
+
+    if site.get("priorita") == "alta":
+        priority_weight = 2
+    elif site.get("priorita") == "media":
+        priority_weight = 1.5
+    elif site.get("priorita") == "bassa":
+        priority_weight = 1
+
+    check_site(
+        site["url"],
+        site["regione"],
+        site["ente"],
+        priority_weight
+    )
 
     print("Monitoraggio completato.")
