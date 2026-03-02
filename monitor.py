@@ -105,10 +105,11 @@ def check_site(url, regione, ente, priority_weight):
                         "titolo": text,
                         "url": href,
                         "score": score,
+                        "type": opportunity_type,
                         "data": datetime.today().strftime("%Y-%m-%d")
                     }
 
-                    results.append(result)
+                    opportunity_type = classify_opportunity(text_lower)results.append(result)
 
                     # Scrive subito nello Sheet
                     sheet.append_row([
@@ -136,7 +137,21 @@ def check_site(url, regione, ente, priority_weight):
 
 
 # ====== MAIN ======
+def classify_opportunity(title_lower):
+    if "gara" in title_lower or "affidamento" in title_lower:
+        return "Gara Servizi"
 
+    if "manifestazione" in title_lower:
+        return "Manifestazione Interesse"
+
+    if "campagna" in title_lower or "promozione" in title_lower:
+        return "Campagna Promozionale"
+
+    if "evento" in title_lower:
+        return "Evento"
+
+    return "Altro"
+    
 if __name__ == "__main__":
 
     for site in sites:
