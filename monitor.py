@@ -4,6 +4,12 @@ from datetime import datetime
 import os
 import json
 import gspread
+import json
+
+# ====== CARICA FONTI ======
+with open("sources.json", "r") as f:
+    sites = json.load(f)
+    
 from oauth2client.service_account import ServiceAccountCredentials
 
 # ====== GOOGLE SHEET CONNECTION ======
@@ -106,44 +112,16 @@ def check_site(url, regione, ente):
 
 if __name__ == "__main__":
 
-    sites = [
-        {
-            "regione": "Toscana",
-            "ente": "Toscana Promozione Turistica",
-            "url": "https://www.toscanapromozione.it/"
-        },
-        {
-            "regione": "Puglia",
-            "ente": "Pugliapromozione",
-            "url": "https://www.agenziapugliapromozione.it/"
-        },
-        {
-            "regione": "Piemonte",
-            "ente": "Visit Piemonte",
-            "url": "https://www.visitpiemonte.it/"
-        },
-        {
-            "regione": "Friuli Venezia Giulia",
-            "ente": "PromoTurismoFVG",
-            "url": "https://www.turismofvg.it/"
-        },
-        {
-            "regione": "Sicilia",
-            "ente": "Assessorato Turismo Sicilia",
-            "url": "https://www.siciliatourism.com/"
-        },
-        {
-            "regione": "Marche",
-            "ente": "Regione Marche Turismo",
-            "url": "https://www.turismo.marche.it/"
-        },
-        {
-            "regione": "Calabria",
-            "ente": "Turismo Calabria",
-            "url": "https://www.calabriaturismo.it/"
-        }
-    ]
+    if __name__ == "__main__":
 
+    for site in sites:
+        check_site(
+            site["url"],
+            site["regione"],
+            site["ente"]
+        )
+
+    print("Monitoraggio completato.")
     for site in sites:
         check_site(site["url"], site["regione"], site["ente"])
 
