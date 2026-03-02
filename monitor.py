@@ -141,20 +141,20 @@ if __name__ == "__main__":
 
     for site in sites:
 
-    priority_weight = 1
-
-    if site.get("priorita") == "alta":
-        priority_weight = 2
-    elif site.get("priorita") == "media":
-        priority_weight = 1.5
-    elif site.get("priorita") == "bassa":
         priority_weight = 1
 
-    check_site(
-        site["url"],
-        site["regione"],
-        site["ente"],
-        priority_weight
-    )
+        if site.get("priorita") == "alta":
+            priority_weight = 2
+        elif site.get("priorita") == "media":
+            priority_weight = 1.5
+        elif site.get("priorita") == "bassa":
+            priority_weight = 1
+
+        check_site(
+            site["url"],
+            site["regione"],
+            site["ente"],
+            priority_weight
+     )
 
     print("Monitoraggio completato.")
