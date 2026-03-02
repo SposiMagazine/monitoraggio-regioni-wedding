@@ -1,38 +1,64 @@
 [
   {
+    "regione": "Lombardia",
+    "ente": "Regione Lombardia - Bandi",
+    "priorita": "alta",
+    "url": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/istituzione/bandi"
+  },
+  {
+    "regione": "Lazio",
+    "ente": "Regione Lazio - Bandi",
+    "priorita": "alta",
+    "url": "https://www.regione.lazio.it/cittadini/bandi-e-avvisi"
+  },
+  {
+    "regione": "Veneto",
+    "ente": "Regione Veneto - Bandi",
+    "priorita": "alta",
+    "url": "https://bandi.regione.veneto.it/Public/Elenco"
+  },
+  {
+    "regione": "Emilia-Romagna",
+    "ente": "Regione Emilia-Romagna - Bandi",
+    "priorita": "alta",
+    "url": "https://bandi.regione.emilia-romagna.it/"
+  },
+  {
     "regione": "Toscana",
-    "ente": "Toscana Promozione Turistica",
-    "tipo_ente": "Turismo",
-    "url": "https://www.toscanapromozione.it/bandi-e-avvisi/"
+    "ente": "Regione Toscana - Bandi",
+    "priorita": "alta",
+    "url": "https://www.regione.toscana.it/-/bandi-attivi"
   },
-  {
-    "regione": "Piemonte",
-    "ente": "Visit Piemonte",
-    "tipo_ente": "Turismo",
-    "url": "https://www.visitpiemonte.it/bandi"
-  },
-  {
-    "regione": "Friuli Venezia Giulia",
-    "ente": "PromoTurismoFVG",
-    "tipo_ente": "Turismo",
-    "url": "https://www.turismofvg.it/it/bandi-e-avvisi"
-  },
-  {
-    "regione": "Sicilia",
-    "ente": "Regione Siciliana",
-    "tipo_ente": "Regione",
-    "url": "https://www.regione.sicilia.it/istituzioni/servizi-informativi/decreti-e-bandi"
-  },
+
   {
     "regione": "Marche",
-    "ente": "Regione Marche",
-    "tipo_ente": "Regione",
+    "ente": "Regione Marche - Bandi",
+    "priorita": "media",
     "url": "https://www.regione.marche.it/Entra-in-Regione/Bandi"
   },
   {
+    "regione": "Abruzzo",
+    "ente": "Regione Abruzzo - Bandi",
+    "priorita": "media",
+    "url": "https://www.regione.abruzzo.it/content/bandi-e-avvisi"
+  },
+  {
     "regione": "Calabria",
-    "ente": "Regione Calabria",
-    "tipo_ente": "Regione",
+    "ente": "Regione Calabria - Bandi",
+    "priorita": "media",
     "url": "https://www.regione.calabria.it/website/portaltemplates/view/view.cfm?13261"
+  },
+
+  {
+    "regione": "Molise",
+    "ente": "Regione Molise - Bandi",
+    "priorita": "bassa",
+    "url": "https://www.regione.molise.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/1"
+  },
+  {
+    "regione": "Valle d'Aosta",
+    "ente": "Regione Valle d'Aosta - Bandi",
+    "priorita": "bassa",
+    "url": "https://www.regione.vda.it/amministrazione/bandi_i.asp"
   }
 ]
