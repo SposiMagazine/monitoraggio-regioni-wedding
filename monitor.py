@@ -112,17 +112,11 @@ def check_site(url, regione, ente):
 
 if __name__ == "__main__":
 
-    if __name__ == "__main__":
-
     for site in sites:
         check_site(
             site["url"],
             site["regione"],
             site["ente"]
         )
-
-    print("Monitoraggio completato.")
-    for site in sites:
-        check_site(site["url"], site["regione"], site["ente"])
 
     print("Monitoraggio completato.")
