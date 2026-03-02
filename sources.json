@@ -1,0 +1,38 @@
+[
+  {
+    "regione": "Toscana",
+    "ente": "Toscana Promozione Turistica",
+    "tipo_ente": "Turismo",
+    "url": "https://www.toscanapromozione.it/bandi-e-avvisi/"
+  },
+  {
+    "regione": "Piemonte",
+    "ente": "Visit Piemonte",
+    "tipo_ente": "Turismo",
+    "url": "https://www.visitpiemonte.it/bandi"
+  },
+  {
+    "regione": "Friuli Venezia Giulia",
+    "ente": "PromoTurismoFVG",
+    "tipo_ente": "Turismo",
+    "url": "https://www.turismofvg.it/it/bandi-e-avvisi"
+  },
+  {
+    "regione": "Sicilia",
+    "ente": "Regione Siciliana",
+    "tipo_ente": "Regione",
+    "url": "https://www.regione.sicilia.it/istituzioni/servizi-informativi/decreti-e-bandi"
+  },
+  {
+    "regione": "Marche",
+    "ente": "Regione Marche",
+    "tipo_ente": "Regione",
+    "url": "https://www.regione.marche.it/Entra-in-Regione/Bandi"
+  },
+  {
+    "regione": "Calabria",
+    "ente": "Regione Calabria",
+    "tipo_ente": "Regione",
+    "url": "https://www.regione.calabria.it/website/portaltemplates/view/view.cfm?13261"
+  }
+]
