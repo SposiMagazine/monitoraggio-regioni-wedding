@@ -49,7 +49,7 @@ def check_site(url, regione, ente):
             text = link.get_text(strip=True)
             href = link.get("href")
 
-            if text and href:
+            if text and href and not href.startswith("javascript") and not href.startswith("#"):
                 score = 0
                 keywords = [
                     "promozione",
