@@ -109,7 +109,8 @@ def check_site(url, regione, ente, priority_weight):
                         "data": datetime.today().strftime("%Y-%m-%d")
                     }
 
-                    opportunity_type = classify_opportunity(text_lower)results.append(result)
+                    opportunity_type = classify_opportunity(text_lower)
+                    results.append(result)
 
                     # Scrive subito nello Sheet
                     sheet.append_row([
